@@ -31,7 +31,7 @@
 
 ## Fork shortcuts
 
-This fork adds `Ctrl+F` to rerun only failed jobs in the selected workflow. It works from the runs, jobs, and checks panes. GitHub may also rerun dependent jobs.
+This fork adds `Ctrl+Alt+F` to rerun only failed jobs in the selected workflow. It works from the runs, jobs, and checks panes. GitHub may also rerun dependent jobs.
 
 `Ctrl+R` keeps its original behavior: rerun the entire selected workflow from the runs pane, or the selected job from the jobs/checks pane.
 
