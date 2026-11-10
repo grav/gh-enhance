@@ -29,6 +29,12 @@
 > Hopefully support will continue and I will make even more awesome TUI apps to make the terminal the ultimate place for developers - without depending on web apps! 🤘🏽
 > Check out some of the supporters [here](https://github.com/dlvhdr#-these-awesome-people-sponsor-me-thank-you), or on my [sponsors page](https://github.com/sponsors/dlvhdr).
 
+## Fork shortcuts
+
+This fork adds `Ctrl+Alt+F` to rerun only failed jobs in the selected workflow. It works from the runs, jobs, and checks panes. GitHub may also rerun dependent jobs.
+
+`Ctrl+R` keeps its original behavior: rerun the entire selected workflow from the runs pane, or the selected job from the jobs/checks pane.
+
 ## ❤️ Sponsoring
 
 If you enjoy `ENHANCE` and want to help, consider supporting the project with a donation at the [sponsors page](https://github.com/sponsors/dlvhdr).

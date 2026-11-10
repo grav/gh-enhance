@@ -794,7 +794,7 @@ func (a *API) FetchWorkflowRunJobs(repo string, runID string) (WorkflowRunJobsRe
 	return accumulated, nil
 }
 
-func (a *API) ReRunRun(repo string, runId string) error {
+func (a *API) ReRunRun(repo string, runId string, failedOnly bool) error {
 	client, err := a.getHTTPClient()
 	if err != nil {
 		return err
@@ -802,8 +802,13 @@ func (a *API) ReRunRun(repo string, runId string) error {
 
 	body := strings.NewReader("")
 
+	action := "rerun"
+	if failedOnly {
+		action = "rerun-failed-jobs"
+	}
+
 	resp, err := client.Post(
-		fmt.Sprintf("%s/repos/%s/actions/runs/%s/rerun", a.url, repo, runId),
+		fmt.Sprintf("%s/repos/%s/actions/runs/%s/%s", a.url, repo, runId, action),
 		"",
 		body,
 	)
@@ -811,6 +816,10 @@ func (a *API) ReRunRun(repo string, runId string) error {
 		return err
 	}
 	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusCreated {
+		body, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("failed to rerun workflow %s: %s %s", runId, resp.Status, string(body))
+	}
 	return nil
 }
 

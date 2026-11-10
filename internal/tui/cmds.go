@@ -793,7 +793,7 @@ type reRunRunMsg struct {
 	err      error
 }
 
-func (m *model) rerunRun(runId string) []tea.Cmd {
+func (m *model) rerunRun(runId string, failedOnly bool) []tea.Cmd {
 	cmds := make([]tea.Cmd, 0)
 	ri := m.getRunItemById(runId)
 	if ri == nil {
@@ -816,7 +816,7 @@ func (m *model) rerunRun(runId string) []tea.Cmd {
 	m.stepsList.SetItems(make([]list.Item, 0))
 
 	cmds = append(cmds, ri.Tick(), func() tea.Msg {
-		err := m.client.ReRunRun(m.repo, runId)
+		err := m.client.ReRunRun(m.repo, runId, failedOnly)
 
 		// don't return too fast as gh might not have even created the run yet
 		time.Sleep(2 * time.Second)
