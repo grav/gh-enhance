@@ -103,6 +103,11 @@ var (
 		key.WithHelp("ctrl+r", "rerun"),
 	)
 
+	rerunFailedKey = key.NewBinding(
+		key.WithKeys("ctrl+f"),
+		key.WithHelp("ctrl+f", "rerun failed jobs"),
+	)
+
 	helpKey = key.NewBinding(
 		key.WithKeys("?"),
 		key.WithHelp("?", "toggle help"),

@@ -527,7 +527,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return newModel, newModel.Init()
 		}
 
-		if key.Matches(msg, rerunKey) {
+		if key.Matches(msg, rerunKey, rerunFailedKey) {
 			if m.focusedPane != PaneRuns && m.focusedPane != PaneJobs &&
 				m.focusedPane != PaneChecks {
 				break
@@ -538,8 +538,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				break
 			}
 
-			if m.focusedPane == PaneRuns {
-				cmds = append(cmds, m.rerunRun(ri.run.Id)...)
+			if m.focusedPane == PaneRuns || key.Matches(msg, rerunFailedKey) {
+				cmds = append(cmds, m.rerunRun(ri.run.Id, key.Matches(msg, rerunFailedKey))...)
 			} else {
 				ji := m.getSelectedJobItem()
 				if ji == nil {
